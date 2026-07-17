@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import HomeView from './components/HomeView';
-import LoginView from './components/LoginView';
-import ServiceCard from './components/ServiceCard';
+import Navbar from './Components/navbar';
+import HomeView from './Components/homeview';
+import LoginView from './Components/loginview';
+import ServiceCard from './Components/servicecard';
 
 function App() {
   // Simple state machine for switching pages before you add React Router
