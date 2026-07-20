@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import Navbar from './Components/navbar';
 import HomeView from './Components/homeview';
 import LoginView from './Components/loginview';
+import RegisterView from './Components/registerview';
 import ServiceCard from './Components/servicecard';
 
 function App() {
-  // Simple state machine for switching pages before you add React Router
   const [currentPage, setCurrentPage] = useState('home');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // YOUR ARRAY REQUIREMENT: Defining the cleaning tiers and options
   const restorationServices = [
     {
       id: 'ultrasonic-clean',
@@ -23,7 +22,7 @@ function App() {
     },
     {
       id: 'warp-repair',
-      title: 'Thermal Warp Flatting',
+      title: 'Thermal Warp Flattening',
       description: 'Carefully restores warped or heat-damaged vintage records to proper tracking flatness.',
       tiers: [
         { label: 'Per Damaged Record (1 - 3 Vinyls)', price: 25 },
@@ -34,17 +33,22 @@ function App() {
 
   return (
     <div style={{ backgroundColor: '#121214', color: '#f4ebd9', minHeight: '100vh', fontFamily: 'Georgia, serif' }}>
-      {/* Hide navigation on the dedicated login view screen */}
-      {currentPage !== 'login' && (
-        <Navbar setCurrentPage={setCurrentPage} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      )}
+      <Navbar 
+        currentPage={currentPage} 
+        setCurrentPage={setCurrentPage} 
+        isLoggedIn={isLoggedIn} 
+        setIsLoggedIn={setIsLoggedIn} 
+      />
 
       <main style={{ maxWidth: '1100px', margin: '2rem auto', padding: '0 1.5rem' }}>
-        
         {currentPage === 'home' && <HomeView />}
 
         {currentPage === 'login' && (
           <LoginView setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} />
+        )}
+
+        {currentPage === 'register' && (
+          <RegisterView setCurrentPage={setCurrentPage} setIsLoggedIn={setIsLoggedIn} />
         )}
 
         {currentPage === 'services' && (
@@ -57,7 +61,6 @@ function App() {
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-              {/* Mapping through our service data array into individual child components */}
               {restorationServices.map((service) => (
                 <ServiceCard key={service.id} service={service} />
               ))}
