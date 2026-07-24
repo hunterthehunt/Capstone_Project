@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 
 function ServiceCard({ service }) {
-  // State to track tier selection and album notes
   const [selectedTier, setSelectedTier] = useState(service.tiers[0]);
   const [albumNotes, setAlbumNotes] = useState('');
 
-  // Submit handler logging and displaying the order object
   const handleOrderSubmit = (e) => {
     e.preventDefault();
 
-    // Construct submission object
     const orderObject = {
       serviceId: service.id,
       serviceTitle: service.title,
@@ -19,13 +16,9 @@ function ServiceCard({ service }) {
       submittedAt: new Date().toLocaleTimeString()
     };
 
-    // 1. Log the submitted object to the browser console
     console.log("Submitted Service Order Object:", orderObject);
-
-    // 2. Display the submitted object in an on-screen alert box
     alert(`Service Order Object Submitted:\n\n${JSON.stringify(orderObject, null, 2)}`);
 
-    // Reset notes input
     setAlbumNotes('');
   };
 
@@ -38,15 +31,15 @@ function ServiceCard({ service }) {
         {service.description}
       </p>
 
-      {/* FORM 2: Service Booking Request */}
+      {/* MEMBER FORM 3: Service Order Booking */}
       <form onSubmit={handleOrderSubmit}>
-        <div style={{ marginBottom: '1rem' }}>
+        <div className="form-group">
           <label style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.5rem', color: '#d4af37' }}>
             Select Batch Volume:
           </label>
           <select 
             onChange={(e) => setSelectedTier(service.tiers[e.target.value])}
-            style={{ width: '100%', padding: '0.75rem', background: '#121214', color: '#f4ebd9', border: '1px solid #3e3e4a', boxSizing: 'border-box' }}
+            className="form-input-dark"
           >
             {service.tiers.map((tier, index) => (
               <option key={index} value={index}>
@@ -56,7 +49,7 @@ function ServiceCard({ service }) {
           </select>
         </div>
 
-        <div style={{ marginBottom: '1.5rem' }}>
+        <div className="form-group" style={{ marginBottom: '1.5rem' }}>
           <label style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.5rem', color: '#d4af37' }}>
             Album Titles / Special Notes:
           </label>
@@ -65,7 +58,7 @@ function ServiceCard({ service }) {
             value={albumNotes} 
             onChange={(e) => setAlbumNotes(e.target.value)}
             placeholder="e.g., Kind of Blue, Abbey Road" 
-            style={{ width: '100%', padding: '0.6rem', background: '#121214', color: '#f4ebd9', border: '1px solid #3e3e4a', boxSizing: 'border-box' }}
+            className="form-input-dark"
           />
         </div>
 
@@ -76,7 +69,7 @@ function ServiceCard({ service }) {
           </span>
         </div>
 
-        <button type="submit" style={{ width: '100%', padding: '0.75rem', background: '#d4af37', color: '#121214', border: 'none', fontWeight: 'bold', textTransform: 'uppercase', cursor: 'pointer' }}>
+        <button type="submit" className="btn-gold">
           Book Restoration
         </button>
       </form>

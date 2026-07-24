@@ -1,27 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function LoginView({ setCurrentPage, setIsLoggedIn }) {
-  const handleSubmission = (e) => {
+  // 1. DEFINED STATE: Holds the member login values initialized as empty strings
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  });
+
+  // 2. STATE UPDATE FUNCTION: Updates state dynamically whenever an input changes
+  const handleChange = (e) => {
+    setLoginData({ 
+      ...loginData, 
+      [e.target.name]: e.target.value // Dynamically updates the specific state field
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+
+    // 3. LOG & DISPLAY THE STATE OBJECT ON SUBMIT
+    console.log("Submitted Member Login State Object:", loginData);
+    alert(`Member Login State Object Submitted:\n\n${JSON.stringify(loginData, null, 2)}`);
+
     setIsLoggedIn(true);
     setCurrentPage('home');
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70vh' }}>
-      <div style={{ backgroundColor: '#ffffff', color: '#121214', padding: '2.5rem 2rem', borderRadius: '6px', maxWidth: '400px', width: '100%', boxShadow: '0 20px 40px rgba(0,0,0,0.6)', borderTop: '5px solid #5c1d24' }}>
-        <h2 style={{ textAlignment: 'center', marginBottom: '1.5rem', color: '#121214', textTransform: 'uppercase' }}>Lounge Access</h2>
-        <form onSubmit={handleSubmission}>
-          <div style={{ marginBottom: '1.25rem' }}>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Passkey Email</label>
-            <input type="email" required style={{ width: '100%', padding: '0.75rem', background: '#f8f9fa', border: '1px solid #cccccc', color: '#121214' }} placeholder="collector@waxxed.com" />
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '65vh' }}>
+      {/* REUSED CSS CLASS: Defined in App.css */}
+      <div className="form-card">
+        <h2 className="form-title">Member Login</h2>
+        
+        {/* FORM ELEMENT */}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Email Address</label>
+            <input 
+              type="email" 
+              name="email" 
+              className="form-input" /* REUSED CSS CLASS */
+              required 
+              value={loginData.email} /* READS FROM STATE */
+              onChange={handleChange} /* UPDATES STATE */
+              placeholder="collector@waxxed.com" 
+            />
           </div>
-          <button type="submit" style={{ width: '100%', padding: '0.8rem', background: '#5c1d24', color: '#ffffff', border: '1px solid #d4af37', textTransform: 'uppercase', cursor: 'pointer' }}>
-            Verify Passkey
+
+          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+            <label className="form-label">Password</label>
+            <input 
+              type="password" 
+              name="password" 
+              className="form-input" /* REUSED CSS CLASS */
+              required 
+              value={loginData.password} /* READS FROM STATE */
+              onChange={handleChange} /* UPDATES STATE */
+              placeholder="••••••••" 
+            />
+          </div>
+
+          <button type="submit" className="btn-primary">
+            Log In
           </button>
         </form>
-        <p onClick={() => setCurrentPage('home')} style={{ color: '#666670', textAlign: 'center', marginTop: '1.5rem', fontSize: '0.85rem', cursor: 'pointer', textDecoration: 'underline' }}>
-          ← Cancel and Turn Back
+
+        <p onClick={() => setCurrentPage('register')} className="form-link">
+          Need an account? Register here
         </p>
       </div>
     </div>
