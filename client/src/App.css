@@ -1,38 +1,247 @@
-.App {
-  text-align: center;
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+body {
+  background-color: #121214;
+  color: #f4ebd9;
+  font-family: Georgia, serif;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-container {
+  background-color: #121214;
+  color: #f4ebd9;
   min-height: 100vh;
+  font-family: Georgia, serif;
+}
+
+.main-content {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.center-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  min-height: 65vh;
 }
 
-.App-link {
-  color: #61dafb;
+/* ==========================================================================
+   NAV BAR
+   ========================================================================== */
+.navbar-header {
+  background-color: #09090a;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px double #d4af37;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-brand {
+  color: #f4ebd9;
+  font-size: 1.4rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.navbar-list {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #f4ebd9;
+  font-weight: normal;
+  border-bottom: none;
+}
+
+.nav-item-active {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #d4af37;
+  font-weight: bold;
+  border-bottom: 2px solid #d4af37;
+}
+
+.nav-item-logout {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #e63946;
+  font-weight: normal;
+}
+
+/* ==========================================================================
+   FORMS/CARDS
+   ========================================================================== */
+.form-card {
+  background-color: #ffffff;
+  color: #121214;
+  padding: 2.5rem 2rem;
+  border-radius: 6px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  border-top: 5px solid #5c1d24;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #121214;
+  text-transform: uppercase;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group-lg {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #121214;
+}
+
+.form-label-gold {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  color: #d4af37;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border: 1px solid #cccccc;
+  color: #121214;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.form-input-dark {
+  width: 100%;
+  padding: 0.75rem;
+  background: #121214;
+  color: #f4ebd9;
+  border: 1px solid #3e3e4a;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.form-link {
+  color: #666670;
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn-primary {
+  width: 100%;
+  padding: 0.8rem;
+  background: #5c1d24;
+  color: #ffffff;
+  border: 1px solid #d4af37;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.btn-gold {
+  width: 100%;
+  padding: 0.75rem;
+  background: #d4af37;
+  color: #121214;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   SERVICES VIEW
+   ========================================================================== */
+.services-header-title {
+  color: #d4af37;
+  text-transform: uppercase;
+  border-bottom: 1px solid #5c1d24;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.services-subtext {
+  margin-bottom: 2rem;
+  color: #a69c8a;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background: #1c1c21;
+  padding: 1.5rem;
+  border-top: 4px solid #5c1d24;
+  border-radius: 4px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.service-card-title {
+  color: #f4ebd9;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.service-card-desc {
+  color: #a69c8a;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  font-family: sans-serif;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #2d2d35;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.price-label {
+  font-size: 0.9rem;
+  color: #a69c8a;
+}
+
+.price-value {
+  font-size: 1.6rem;
+  color: #d4af37;
+  font-weight: bold;
+  font-family: sans-serif;
 }

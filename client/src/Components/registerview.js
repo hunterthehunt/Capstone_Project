@@ -19,7 +19,7 @@ function RegisterView({ setCurrentPage, setIsLoggedIn }) {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      alert("Passwords don't match!");
       return;
     }
 
@@ -31,11 +31,10 @@ function RegisterView({ setCurrentPage, setIsLoggedIn }) {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '65vh' }}>
+    <div className="center-container">
       <div className="form-card">
         <h2 className="form-title">Join the Vinyl Club</h2>
         
-        {/* MEMBER FORM 1: Registration */}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">Full Name</label>
@@ -76,7 +75,7 @@ function RegisterView({ setCurrentPage, setIsLoggedIn }) {
             />
           </div>
 
-          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+          <div className="form-group-lg">
             <label className="form-label">Confirm Password</label>
             <input 
               type="password" 

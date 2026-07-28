@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 import Navbar from './Components/navbar';
 import HomeView from './Components/homeview';
 import LoginView from './Components/loginview';
@@ -32,7 +33,7 @@ function App() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#121214', color: '#f4ebd9', minHeight: '100vh', fontFamily: 'Georgia, serif' }}>
+    <div className="app-container">
       <Navbar 
         currentPage={currentPage} 
         setCurrentPage={setCurrentPage} 
@@ -40,7 +41,7 @@ function App() {
         setIsLoggedIn={setIsLoggedIn} 
       />
 
-      <main style={{ maxWidth: '1100px', margin: '2rem auto', padding: '0 1.5rem' }}>
+      <main className="main-content">
         {currentPage === 'home' && <HomeView />}
 
         {currentPage === 'login' && (
@@ -53,14 +54,14 @@ function App() {
 
         {currentPage === 'services' && (
           <div>
-            <h2 style={{ color: '#d4af37', textTransform: 'uppercase', borderBottom: '1px solid #5c1d24', paddingBottom: '0.5rem', marginBottom: '2rem' }}>
+            <h2 className="services-header-title">
               Sonic Restoration Lab
             </h2>
-            <p style={{ marginBottom: '2rem', color: '#a69c8a' }}>
+            <p className="services-subtext">
               Select a professional conditioning service below to preserve your analog tracking quality.
             </p>
             
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+            <div className="services-grid">
               {restorationServices.map((service) => (
                 <ServiceCard key={service.id} service={service} />
               ))}

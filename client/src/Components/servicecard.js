@@ -23,18 +23,17 @@ function ServiceCard({ service }) {
   };
 
   return (
-    <div style={{ background: '#1c1c21', padding: '1.5rem', borderTop: '4px solid #5c1d24', borderRadius: '4px', boxShadow: '5px 5px 15px rgba(0,0,0,0.5)' }}>
-      <h3 style={{ color: '#f4ebd9', fontSize: '1.3rem', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
+    <div className="service-card">
+      <h3 className="service-card-title">
         {service.title}
       </h3>
-      <p style={{ color: '#a69c8a', fontSize: '0.95rem', marginBottom: '1.5rem', fontFamily: 'sans-serif' }}>
+      <p className="service-card-desc">
         {service.description}
       </p>
 
-      {/* MEMBER FORM 3: Service Order Booking */}
       <form onSubmit={handleOrderSubmit}>
         <div className="form-group">
-          <label style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.5rem', color: '#d4af37' }}>
+          <label className="form-label-gold">
             Select Batch Volume:
           </label>
           <select 
@@ -49,8 +48,8 @@ function ServiceCard({ service }) {
           </select>
         </div>
 
-        <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-          <label style={{ display: 'block', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '0.5rem', color: '#d4af37' }}>
+        <div className="form-group-lg">
+          <label className="form-label-gold">
             Album Titles / Special Notes:
           </label>
           <input 
@@ -62,9 +61,9 @@ function ServiceCard({ service }) {
           />
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #2d2d35', paddingTop: '1rem', marginBottom: '1rem' }}>
-          <span style={{ fontSize: '0.9rem', color: '#a69c8a' }}>Est. Cost:</span>
-          <span style={{ fontSize: '1.6rem', color: '#d4af37', fontWeight: 'bold', fontFamily: 'sans-serif' }}>
+        <div className="price-row">
+          <span className="price-label">Est. Cost:</span>
+          <span className="price-value">
             ${selectedTier.price}
           </span>
         </div>
