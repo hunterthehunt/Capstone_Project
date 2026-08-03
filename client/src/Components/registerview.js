@@ -19,12 +19,20 @@ function RegisterView({ setCurrentPage, setIsLoggedIn }) {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
+      alert("Passwords do not match!");
       return;
     }
 
-    console.log("Submitted Member Registration Object:", formData);
-    alert(`Member Registration Object Submitted:\n\n${JSON.stringify(formData, null, 2)}`);
+    // Object constructed to match MongoDB 'members' schema field names
+    const memberRegistrationObject = {
+      fullName: formData.fullName,
+      email: formData.email,
+      password: formData.password, // Matches your MongoDB 'password' field
+      submittedAt: new Date().toISOString()
+    };
+
+    console.log("Submitted Member Registration Object:", memberRegistrationObject);
+    alert(`Member Registration Object Submitted:\n\n${JSON.stringify(memberRegistrationObject, null, 2)}`);
 
     setIsLoggedIn(true);
     setCurrentPage('home');

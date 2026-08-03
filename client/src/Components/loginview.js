@@ -16,8 +16,14 @@ function LoginView({ setCurrentPage, setIsLoggedIn }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Submitted Member Login State Object:", loginData);
-    alert(`Member Login State Object Submitted:\n\n${JSON.stringify(loginData, null, 2)}`);
+    // Payload formatted to match MongoDB query parameters
+    const loginPayload = {
+      email: loginData.email,
+      password: loginData.password // Matches MongoDB 'password' key
+    };
+
+    console.log("Submitted Member Login State Object:", loginPayload);
+    alert(`Member Login State Object Submitted:\n\n${JSON.stringify(loginPayload, null, 2)}`);
 
     setIsLoggedIn(true);
     setCurrentPage('home');
