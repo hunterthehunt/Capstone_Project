@@ -1,23 +1,49 @@
-Waxxed on Wax Vinyl Club
+# Waxxed on Wax Vinyl Club
 
-This site should be a vinyl collectors safe haven.  Here you will be able to interact with members, view vinyls from our company, and more importantly, request a vinyl restoration service for older vinyls.
-The site is not loud, the colors are browns and yellows and darker hues in order to give a laid back vibe vs one that is high strung and excitable when it comes to color schemes.  
+This site is designed as a vinyl collector's safe haven. Members can interact, view vinyl collections from our catalog, and request restoration services for older vinyl records. The UI features a relaxed aesthetic—utilizing warm browns, golden yellows, and dark hues to create a laid-back, lounge-inspired atmosphere rather than a bright or high-contrast interface.
 
-Technology Used:
-1.  HTML
-2.  Java
-3.  React
-4.  MySQL
-5.  React
+---
 
+## Technology Stack
 
+* **Frontend:** React, HTML5, CSS3, JavaScript (ES6+)
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB (MongoDB Native Driver)
+* **Utilities:** CORS, Express List Endpoints, Nodemon
 
-User Stories:
+---
 
-Placeholder for DB relation
+## User Stories
 
-Screenshots
+1. **As a vinyl enthusiast**, I want to browse available vinyl records and restoration services so that I can care for and grow my collection.
+2. **As a club member**, I want to create an account and log in securely to request specialized restoration services.
+3. **As a user**, I want a calm, relaxed visual aesthetic (warm dark tones) that feels like an authentic vinyl lounge.
+4. **As an admin/developer**, I want a structured backend API to manage members, service listings, and service requests seamlessly.
 
-Database Code:
+---
 
-Future modifications:
+## Database Architecture (MongoDB)
+
+The project connects to a MongoDB database named `vinyl_club_DB` housing three core collections:
+
+* **`members`**: Stores user profiles, authentication details, and membership credentials.
+* **`services`**: Contains the catalog of restoration services offered.
+* **`service_orders`**: Relational junction collection connecting members to their booked restoration requests.
+
+```javascript
+// Example MongoDB Native Driver Connection (server/config/db.js)
+import { MongoClient } from 'mongodb';
+
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const dbName = 'vinyl_club_DB';
+
+let dbInstance;
+
+export const connectDB = async () => {
+  if (dbInstance) return dbInstance;
+  const client = new MongoClient(url);
+  await client.connect();
+  dbInstance = client.db(dbName);
+  return dbInstance;
+};
+
