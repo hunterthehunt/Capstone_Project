@@ -6,7 +6,6 @@ function HomeView() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Send GET request to backend on component mount
   useEffect(() => {
     fetch('http://localhost:5000/api/services')
       .then((res) => {
@@ -31,41 +30,63 @@ function HomeView() {
   }
 
   if (error) {
-    return <p className="center-container" style={{ color: 'red' }}>Error: {error}</p>;
+    return <p className="center-container" style={{ color: '#d9534f' }}>Error: {error}</p>;
   }
 
   return (
     <div className="home-container">
-      <h1 className="home-title">Vinyl Restoration Services</h1>
+      {/* Hero Banner */}
+      <section className="hero-banner tile-border">
+        <h1 className="hero-title">WAXXED ON WAXX</h1>
+        <p className="hero-subtitle">Grant Park’s Premier Vinyl Restoration & Care Lab</p>
+      </section>
 
-      {/* Services Table */}
-      <table className="services-table">
-        <thead>
-          <tr>
-            <th>Service Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Turnaround</th>
-          </tr>
-        </thead>
-        <tbody>
+      {/* About Us Section */}
+      <section className="about-section tile-border">
+        <h2 className="section-title">About Our Shop</h2>
+        <p className="about-text">
+          Proudly serving the historic <strong>Grant Park</strong> neighborhood for over 5 years, 
+          <strong> Waxxed on Waxx</strong> is an up-and-coming vinyl restoration sanctuary. 
+          Whether you're looking to eliminate surface static, lift deep-groove dust, or revive rare vintage pressings, 
+          our lab delivers meticulous analog care so your collection plays exactly the way the artist intended.
+        </p>
+      </section>
+
+      {/* Restoration Services Section */}
+      <section className="services-section tile-border">
+        <h2 className="section-title">Vinyl Restoration Services</h2>
+
+        {/* Services Table */}
+        <div className="table-wrapper">
+          <table className="services-table">
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Turnaround</th>
+              </tr>
+            </thead>
+            <tbody>
+              {services.map((service) => (
+                <tr key={service._id || service.serviceName}>
+                  <td><strong>{service.serviceName}</strong></td>
+                  <td>{service.description}</td>
+                  <td>${service.basePrice}</td>
+                  <td>{service.turnaroundDays} Days</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Service Cards Grid */}
+        <div className="card-grid">
           {services.map((service) => (
-            <tr key={service._id || service.serviceName}>
-              <td><strong>{service.serviceName}</strong></td>
-              <td>{service.description}</td>
-              <td>${service.basePrice}</td>
-              <td>{service.turnaroundDays} Days</td>
-            </tr>
+            <ServiceCard key={service._id || service.serviceName} service={service} />
           ))}
-        </tbody>
-      </table>
-
-      {/* Service Cards Grid */}
-      <div className="card-grid">
-        {services.map((service) => (
-          <ServiceCard key={service._id || service.serviceName} service={service} />
-        ))}
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
