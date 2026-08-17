@@ -1,24 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ServiceCard from './servicecard';
 
 function HomeView() {
-  return (
-    <div>
-      <section style={{ textAlign: 'center', padding: '3rem 1rem', background: 'radial-gradient(circle, #1a1a22 0%, #121214 70%)', borderRadius: '8px', marginBottom: '2.5rem' }}>
-        <h2 style={{ fontSize: '2.2rem', color: '#d4af37', textTransform: 'uppercase', marginBottom: '1rem' }}>The Crate Digger's Sanctuary</h2>
-        <p style={{ maxWidth: '750px', margin: '0 auto', color: '#a69c8a', fontFamily: 'sans-serif' }}>
-          Step out of the digital noise and into the warm tracking of vintage analog setups. We preserve sonic fidelity.
-        </p>
-      </section>
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '3rem' }}>
-        <section>
-          <h3 style={{ color: '#d4af37', textTransform: 'uppercase', marginBottom: '1rem' }}>Crate Digging History</h3>
-          <p>Waxxed on Waxx began in smoky backrooms where collectors met to trade rare pressings and preserve classic sonic signal paths.</p>
-        </section>
-        <aside style={{ background: '#1c1c21', padding: '1.5rem', borderLeft: '4px solid #5c1d24' }}>
-          <h4 style={{ color: '#d4af37', marginBottom: '0.5rem' }}>Club Pillars</h4>
-          <p style={{ fontSize: '0.9rem', fontFamily: 'sans-serif' }}>• Pure Signal Tracking<br />• Precision Preservation<br />• Acoustic Integrity</p>
-        </aside>
+  // Send GET request to backend on component mount
+  useEffect(() => {
+    fetch('http://localhost:5000/api/services')
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Server returned status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setServices(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error fetching services:', err);
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <p className="center-container">Loading restoration services from server...</p>;
+  }
+
+  if (error) {
+    return <p className="center-container" style={{ color: 'red' }}>Error: {error}</p>;
+  }
+
+  return (
+    <div className="home-container">
+      <h1 className="home-title">Vinyl Restoration Services</h1>
+
+      {/* Services Table */}
+      <table className="services-table">
+        <thead>
+          <tr>
+            <th>Service Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Turnaround</th>
+          </tr>
+        </thead>
+        <tbody>
+          {services.map((service) => (
+            <tr key={service._id || service.serviceName}>
+              <td><strong>{service.serviceName}</strong></td>
+              <td>{service.description}</td>
+              <td>${service.basePrice}</td>
+              <td>{service.turnaroundDays} Days</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Service Cards Grid */}
+      <div className="card-grid">
+        {services.map((service) => (
+          <ServiceCard key={service._id || service.serviceName} service={service} />
+        ))}
       </div>
     </div>
   );
