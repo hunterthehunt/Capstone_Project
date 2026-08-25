@@ -1,108 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function RegisterView({ setCurrentPage, setIsLoggedIn }) {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData({ 
-      ...formData, 
-      [e.target.name]: e.target.value 
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-
-    // Object constructed to match MongoDB 'members' schema field names
-    const memberRegistrationObject = {
-      fullName: formData.fullName,
-      email: formData.email,
-      password: formData.password, // Matches your MongoDB 'password' field
-      submittedAt: new Date().toISOString()
-    };
-
-    console.log("Submitted Member Registration Object:", memberRegistrationObject);
-    alert(`Member Registration Object Submitted:\n\n${JSON.stringify(memberRegistrationObject, null, 2)}`);
-
-    setIsLoggedIn(true);
-    setCurrentPage('home');
-  };
-
+function RegisterView() {
   return (
-    <div className="center-container">
-      <div className="form-card">
-        <h2 className="form-title">Join the Vinyl Club</h2>
-        
-        <form onSubmit={handleSubmit}>
+    <div className="auth-wrapper">
+      <div className="auth-card">
+        <h2 className="section-title">Join the Vinyl Club</h2>
+        <form>
           <div className="form-group">
-            <label className="form-label">Full Name</label>
-            <input 
-              type="text" 
-              name="fullName" 
-              className="form-input" 
-              required 
-              value={formData.fullName} 
-              onChange={handleChange} 
-              placeholder="Miles Davis" 
-            />
+            <label>Full Name</label>
+            <input type="text" placeholder="e.g. Miles Davis" />
           </div>
 
           <div className="form-group">
-            <label className="form-label">Email Address</label>
-            <input 
-              type="email" 
-              name="email" 
-              className="form-input" 
-              required 
-              value={formData.email} 
-              onChange={handleChange} 
-              placeholder="collector@waxxed.com" 
-            />
+            <label>Email Address</label>
+            <input type="email" placeholder="collector@waxxed.com" />
           </div>
 
           <div className="form-group">
-            <label className="form-label">Password</label>
-            <input 
-              type="password" 
-              name="password" 
-              className="form-input" 
-              required 
-              value={formData.password} 
-              onChange={handleChange} 
-              placeholder="••••••••" 
-            />
+            <label>Password</label>
+            <input type="password" placeholder="••••••••" />
           </div>
 
-          <div className="form-group-lg">
-            <label className="form-label">Confirm Password</label>
-            <input 
-              type="password" 
-              name="confirmPassword" 
-              className="form-input" 
-              required 
-              value={formData.confirmPassword} 
-              onChange={handleChange} 
-              placeholder="••••••••" 
-            />
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input type="password" placeholder="••••••••" />
           </div>
 
-          <button type="submit" className="btn-primary">
+          <button type="submit" className="nav-btn auth-btn">
             Create Account
           </button>
         </form>
 
-        <p onClick={() => setCurrentPage('login')} className="form-link">
-          Already a member? Log in here
+        <p className="auth-footer">
+          Already a member? <Link to="/login">Log in here</Link>
         </p>
       </div>
     </div>
