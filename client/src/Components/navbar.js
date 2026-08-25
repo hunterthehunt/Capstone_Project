@@ -1,52 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Navbar({ currentPage, setCurrentPage, isLoggedIn, setIsLoggedIn }) {
+function Navbar() {
   return (
-    <header className="navbar-header">
-      <h1 className="navbar-brand">
-        Waxxed on Waxx
-      </h1>
-      <nav>
-        <ul className="navbar-list">
-          <li 
-            className={currentPage === 'home' ? 'nav-item-active' : 'nav-item'} 
-            onClick={() => setCurrentPage('home')}
-          >
-            Home
-          </li>
-          <li 
-            className={currentPage === 'services' ? 'nav-item-active' : 'nav-item'} 
-            onClick={() => setCurrentPage('services')}
-          >
-            Services
-          </li>
-          
-          {isLoggedIn ? (
-            <li 
-              className="nav-item-logout" 
-              onClick={() => { setIsLoggedIn(false); setCurrentPage('home'); }}
-            >
-              Logout
-            </li>
-          ) : (
-            <>
-              <li 
-                className={currentPage === 'login' ? 'nav-item-active' : 'nav-item'} 
-                onClick={() => setCurrentPage('login')}
-              >
-                Login
-              </li>
-              <li 
-                className={currentPage === 'register' ? 'nav-item-active' : 'nav-item'} 
-                onClick={() => setCurrentPage('register')}
-              >
-                Register
-              </li>
-            </>
-          )}
-        </ul>
-      </nav>
-    </header>
+    <nav className="navbar-container">
+      <div className="navbar-brand">
+        <h2>WAXXED ON WAXX</h2>
+      </div>
+      <div className="navbar-menu">
+        <Link to="/">
+          <button className="nav-btn">Home</button>
+        </Link>
+        <Link to="/services">
+          <button className="nav-btn">Services</button>
+        </Link>
+        <Link to="/login">
+          <button className="nav-btn">Login</button>
+        </Link>
+        <Link to="/register">
+          <button className="nav-btn">Register</button>
+        </Link>
+      </div>
+    </nav>
   );
 }
 
