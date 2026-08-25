@@ -22,6 +22,45 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 
 ---
 
+```mermaid
+erDiagram
+    USERS ||--o{ USER_PROFILES : "has"
+    USERS ||--o{ ORDERS : "places"
+    SERVICES ||--o{ ORDER_ITEMS : "included_in"
+    ORDERS ||--|{ ORDER_ITEMS : "contains"
+
+    USERS {
+        int userID PK
+        string email
+        string password
+    }
+
+    USER_PROFILES {
+        int profileID PK
+        int userID FK
+        string full_name
+    }
+
+    SERVICES {
+        int serviceID PK
+        string service_name
+        decimal price
+    }
+
+    ORDERS {
+        int orderID PK
+        int userID FK
+        string order_date
+    }
+
+    ORDER_ITEMS {
+        int itemID PK
+        int orderID FK
+        int serviceID FK
+    }
+
+```
+
 ## Database Architecture (MongoDB)
 
 The project connects to a MongoDB database named `vinyl_club_DB` housing three core collections:
