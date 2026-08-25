@@ -60,6 +60,69 @@ erDiagram
     }
 
 ```
+#### 2. Service Schema (`models/Service.js`)
+
+```javascript
+const mongoose = require('mongoose');
+
+const ServiceSchema = new mongoose.Schema(
+  {
+    serviceName: {
+      type: String,
+      required: [true, 'Please provide a service name'],
+      trim: true
+    },
+    description: {
+      type: String,
+      required: [true, 'Please provide a description']
+    },
+    price: {
+      type: String,
+      required: [true, 'Please provide a price']
+    },
+    turnaround: {
+      type: String,
+      required: [true, 'Please provide estimated turnaround time']
+    }
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model('Service', ServiceSchema);
+
+```
+// Database initialization & collection seeding
+db = db.getSiblingDB('waxxed_db');
+
+// Create collections
+db.createCollection('users');
+db.createCollection('services');
+
+// Seed Services Collection
+db.services.insertMany([
+  {
+    serviceName: 'Deep Washing (1–5 Vinyls)',
+    description: 'Ultrasonic and deep-groove cleaning for small batches. Eliminates surface noise, dust, and light smudges.',
+    price: '$25',
+    turnaround: '24–48 Hours',
+    createdAt: new Date()
+  },
+  {
+    serviceName: 'Deep Washing (6+ Vinyls)',
+    description: 'Bulk deep cleaning for larger collections. Complete groove restoration with anti-static inner sleeve upgrades included.',
+    price: '$45+',
+    turnaround: '2–3 Days',
+    createdAt: new Date()
+  },
+  {
+    serviceName: 'Premier Restoration',
+    description: 'Specialized intensive care for heavily soiled, mold-affected, or rare vintage pressings requiring multi-stage hand-restoration.',
+    price: '$60',
+    turnaround: '3–5 Days',
+    createdAt: new Date()
+  }
+]);
+
 
 ## Database Architecture (MongoDB)
 
