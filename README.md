@@ -69,6 +69,45 @@ The project connects to a MongoDB database named `vinyl_club_DB` housing three c
 * **`services`**: Contains the catalog of restoration services offered.
 * **`service_orders`**: Relational junction collection connecting members to their booked restoration requests.
 
+* ## 🍃 MongoDB Setup & Schemas
+
+**Database Name:** `waxxed_db`  
+**Collections:** `users`, `services`
+
+---
+
+### Mongoose Schema Definitions (`models/`)
+
+#### 1. User Schema (`models/User.js`)
+
+```javascript
+const mongoose = require('mongoose');
+
+const UserSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Please provide a full name'],
+      trim: true
+    },
+    email: {
+      type: String,
+      required: [true, 'Please provide an email address'],
+      unique: true,
+      lowercase: true,
+      trim: true
+    },
+    password: {
+      type: String,
+      required: [true, 'Please provide a password'],
+      minlength: 6
+    }
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model('User', UserSchema);
+
 ```javascript
 // Example MongoDB Native Driver Connection (server/config/db.js)
 import { MongoClient } from 'mongodb';
