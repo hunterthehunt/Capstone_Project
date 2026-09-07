@@ -96,6 +96,20 @@ db.services.insertMany([
     createdAt: new Date()
   }
 ]);
+
+## Screenshots
+
+### Home Page
+![Home Page](./images/home.png)
+
+### Login Page
+![Login Page](./images/login.png)
+
+### Registration Page
+![Register Page](./images/register.png)
+
+### Services Page
+![Services Page](./images/services.png)
 ```
 **Key Enhancements Included:**
 * **MongoDB Data Types:** Replaced generic strings with exact BSON types (`ObjectId`, `date`, `int`).
