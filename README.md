@@ -96,7 +96,7 @@ db.services.insertMany([
     createdAt: new Date()
   }
 ]);
-
+```
 ## Screenshots
 
 ### Home Page
