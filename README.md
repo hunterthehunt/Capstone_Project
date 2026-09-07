@@ -102,3 +102,4 @@ db.services.insertMany([
 * **Explicit Keys:** Labeled Primary Keys (`PK`) and Foreign Keys (`FK`) inside each collection.
 * **Complete Schemas:** Added `updatedAt` and timestamp fields across all entities to mirror real database schemas.
 * **Cardinality Labels:** Defined explicit relationship labels (`places (1:N)` and `contains (1:N)`).
+]);
