@@ -52,5 +52,3 @@ erDiagram
         string order_date
         string status
     }
-  }
-]);
