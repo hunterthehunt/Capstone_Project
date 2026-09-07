@@ -97,6 +97,20 @@ db.services.insertMany([
   }
 ]);
 ```
+## Screenshots
+
+### Home Page
+![Home Page](./images/home.png)
+
+### Login Page
+![Login Page](./images/login.png)
+
+### Registration Page
+![Register Page](./images/register.png)
+
+### Services Page
+![Services Page](./images/services.png)
+```
 **Key Enhancements Included:**
 * **MongoDB Data Types:** Replaced generic strings with exact BSON types (`ObjectId`, `date`, `int`).
 * **Explicit Keys:** Labeled Primary Keys (`PK`) and Foreign Keys (`FK`) inside each collection.
