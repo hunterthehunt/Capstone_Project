@@ -3,37 +3,58 @@ import { Link } from 'react-router-dom';
 
 function RegisterView() {
   return (
-    <div className="auth-wrapper">
-      <div className="auth-card">
-        <h2 className="section-title">Join the Vinyl Club</h2>
-        <form>
+    <div className="auth-page-container">
+      <div className="auth-card tile-border">
+        <h2 className="auth-title">Join the Vinyl Club</h2>
+        
+        <form className="auth-form">
           <div className="form-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="e.g. Miles Davis" />
+            <label htmlFor="name">Full Name</label>
+            <input 
+              type="text" 
+              id="name" 
+              placeholder="e.g. Miles Davis" 
+              className="auth-input"
+            />
           </div>
 
           <div className="form-group">
-            <label>Email Address</label>
-            <input type="email" placeholder="collector@waxxed.com" />
+            <label htmlFor="email">Email Address</label>
+            <input 
+              type="email" 
+              id="email" 
+              placeholder="collector@waxxed.com" 
+              className="auth-input"
+            />
           </div>
 
           <div className="form-group">
-            <label>Password</label>
-            <input type="password" placeholder="••••••••" />
+            <label htmlFor="password">Password</label>
+            <input 
+              type="password" 
+              id="password" 
+              placeholder="••••••••" 
+              className="auth-input"
+            />
           </div>
 
           <div className="form-group">
-            <label>Confirm Password</label>
-            <input type="password" placeholder="••••••••" />
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              placeholder="••••••••" 
+              className="auth-input"
+            />
           </div>
 
-          <button type="submit" className="nav-btn auth-btn">
+          <button type="submit" className="auth-btn">
             Create Account
           </button>
         </form>
 
-        <p className="auth-footer">
-          Already a member? <Link to="/login">Log in here</Link>
+        <p className="auth-footer-text">
+          Already a member? <Link to="/login" className="auth-link">Log in here</Link>
         </p>
       </div>
     </div>

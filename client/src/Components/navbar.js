@@ -3,23 +3,15 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <nav className="navbar-container">
-      <div className="navbar-brand">
-        <h2>WAXXED ON WAXX</h2>
+    <nav className="navbar">
+      <div className="nav-brand">
+        <Link to="/">WAXXED ON WAX</Link>
       </div>
-      <div className="navbar-menu">
-        <Link to="/">
-          <button className="nav-btn">Home</button>
-        </Link>
-        <Link to="/services">
-          <button className="nav-btn">Services</button>
-        </Link>
-        <Link to="/login">
-          <button className="nav-btn">Login</button>
-        </Link>
-        <Link to="/register">
-          <button className="nav-btn">Register</button>
-        </Link>
+      <div className="nav-links">
+        <Link to="/" className="nav-btn">Home</Link>
+        <Link to="/services" className="nav-btn">Services</Link>
+        <Link to="/login" className="nav-btn">Login</Link>
+        <Link to="/register" className="nav-btn">Register</Link>
       </div>
     </nav>
   );
