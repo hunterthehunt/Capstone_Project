@@ -25,32 +25,37 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 
 ```mermaid
 erDiagram
-    members ||--o{ service_orders : "places"
-    services ||--o{ service_orders : "referenced_in"
-```
+    members ||--o{ service_orders : "places (1:N)"
+    services ||--o{ service_orders : "contains (1:N)"
+
     members {
-        string _id PK
+        ObjectId _id PK
         string name
         string email
         string password
-        string createdAt
+        date createdAt
+        date updatedAt
     }
 
     services {
-        string _id PK
+        ObjectId _id PK
         string service_name
         string description
         string price
         string turnaround
+        date createdAt
+        date updatedAt
     }
 
     service_orders {
-        string _id PK
-        string member_id FK
-        string service_id FK
+        ObjectId _id PK
+        ObjectId member_id FK
+        ObjectId service_id FK
         int quantity
-        string order_date
         string status
+        date order_date
+        date createdAt
+        date updatedAt
     }
 
 ## MongoDB DB Setup
