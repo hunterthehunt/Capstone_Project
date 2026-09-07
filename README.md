@@ -22,41 +22,45 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 
 ---
 
-```mermaid
-erDiagram
-    USERS ||--o{ USER_PROFILES : "has"
-    USERS ||--o{ ORDERS : "places"
-    SERVICES ||--o{ ORDER_ITEMS : "included_in"
-    ORDERS ||--|{ ORDER_ITEMS : "contains"
+## 🗄️ Database Entity-Relationship Diagram (ERD)
 
-    USERS {
+```mermaid diagram
+erDiagram
+    users ||--o{ user_profiles : "has"
+    users ||--o{ orders : "places"
+    services ||--o{ orders : "referenced_in"
+
+    users {
         int userID PK
         string email
-        string password
+        string password_hash
+        string created_at
     }
 
-    USER_PROFILES {
+    user_profiles {
         int profileID PK
         int userID FK
         string full_name
+        string phone_number
+        text address
     }
 
-    SERVICES {
+    services {
         int serviceID PK
         string service_name
+        text description
         decimal price
+        string turnaround_time
     }
 
-    ORDERS {
+    orders {
         int orderID PK
         int userID FK
-        string order_date
-    }
-
-    ORDER_ITEMS {
-        int itemID PK
-        int orderID FK
         int serviceID FK
+        int quantity
+        string order_date
+        string status
+        decimal total_amount
     }
 
 ```
