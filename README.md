@@ -27,7 +27,7 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 erDiagram
     members ||--o{ service_orders : "places"
     services ||--o{ service_orders : "referenced_in"
-
+```
     members {
         string _id PK
         string name
