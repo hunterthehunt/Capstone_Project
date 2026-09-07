@@ -17,7 +17,7 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 
 1. **As a vinyl enthusiast**, I want to browse available vinyl records and restoration services so that I can care for and grow my collection.
 2. **As a club member**, I want to create an account and log in securely to request specialized restoration services.
-3. **As an admin/developer**, I want a structured backend API to manage members, service listings, and service requests seamlessly.
+3. **As a customer**, I want to select specific cleaning packages and choose quantities so that I can submit service booking requests for my record collection.
 
 ---
 
