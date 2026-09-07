@@ -52,3 +52,37 @@ erDiagram
         string order_date
         string status
     }
+
+```javascript
+// Database initialization & collection seeding
+db = db.getSiblingDB('vinyl_club_DB');
+
+// Create collections
+db.createCollection('members');
+db.createCollection('services');
+db.createCollection('service_orders');
+
+// Seed Services Collection
+db.services.insertMany([
+  {
+    service_name: 'Deep Washing (1–5 Vinyls)',
+    description: 'Ultrasonic and deep-groove cleaning for small batches. Eliminates surface noise, dust, and light smudges.',
+    price: '$25',
+    turnaround: '24–48 Hours',
+    createdAt: new Date()
+  },
+  {
+    service_name: 'Deep Washing (6+ Vinyls)',
+    description: 'Bulk deep cleaning for larger collections. Complete groove restoration with anti-static inner sleeve upgrades included.',
+    price: '$45+',
+    turnaround: '2–3 Days',
+    createdAt: new Date()
+  },
+  {
+    service_name: 'Premier Restoration',
+    description: 'Specialized intensive care for heavily soiled, mold-affected, or rare vintage pressings requiring multi-stage hand-restoration.',
+    price: '$60',
+    turnaround: '3–5 Days',
+    createdAt: new Date()
+  }
+]);
