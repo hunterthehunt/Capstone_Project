@@ -1,19 +1,35 @@
-import express from 'express';
-import { getDb } from '../config/db.js';
-
+const express = require('express');
 const router = express.Router();
+// Adjust path if your User model is located elsewhere, e.g., ../models/User
+const User = require('../models/User');
 
-// @route   GET /api/members
-// @desc    Get all members from MongoDB
-router.get('/', async (req, res) => {
+// POST /api/members/login (or /api/auth/login)
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const db = getDb();
-    const members = await db.collection('members').find({}).toArray();
-    res.status(200).json(members);
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found in system.' });
+    }
+
+    if (user.password !== password) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials.' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Login successful.',
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    });
   } catch (error) {
-    console.error('Error fetching members:', error);
-    res.status(500).json({ message: 'Server error while fetching members' });
+    return res.status(500).json({ success: false, message: 'Server error during login.', error });
   }
 });
 
-export default router;
+module.exports = router;
