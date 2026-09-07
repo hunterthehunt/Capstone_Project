@@ -8,7 +8,7 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 
 * **Frontend:** React, HTML5, CSS3, JavaScript (ES6+)
 * **Backend:** Node.js, Express.js
-* **Database:** MongoDB (MongoDB Native Driver)
+* **Database:** MongoDB (MongoDB Native Driver & Mongoose)
 * **Utilities:** CORS, Express List Endpoints, Nodemon
 
 ---
@@ -23,171 +23,32 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 
 ## 🗄️ Database Entity-Relationship Diagram (ERD)
 
-```mermaid diagram
+```mermaid
 erDiagram
-    users ||--o{ user_profiles : "has"
-    users ||--o{ orders : "places"
-    services ||--o{ orders : "referenced_in"
+    members ||--o{ service_orders : "places"
+    services ||--o{ service_orders : "referenced_in"
 
-    users {
-        int userID PK
+    members {
+        string _id PK
+        string name
         string email
-        string password_hash
-        string created_at
-    }
-
-    user_profiles {
-        int profileID PK
-        int userID FK
-        string full_name
-        string phone_number
-        text address
+        string password
+        string createdAt
     }
 
     services {
-        int serviceID PK
+        string _id PK
         string service_name
-        text description
-        decimal price
-        string turnaround_time
+        string description
+        string price
+        string turnaround
     }
 
-    orders {
-        int orderID PK
-        int userID FK
-        int serviceID FK
+    service_orders {
+        string _id PK
+        string member_id FK
+        string service_id FK
         int quantity
         string order_date
         string status
-        decimal total_amount
     }
-
-```
-#### 2. Service Schema (`models/Service.js`)
-
-```javascript
-const mongoose = require('mongoose');
-
-const ServiceSchema = new mongoose.Schema(
-  {
-    serviceName: {
-      type: String,
-      required: [true, 'Please provide a service name'],
-      trim: true
-    },
-    description: {
-      type: String,
-      required: [true, 'Please provide a description']
-    },
-    price: {
-      type: String,
-      required: [true, 'Please provide a price']
-    },
-    turnaround: {
-      type: String,
-      required: [true, 'Please provide estimated turnaround time']
-    }
-  },
-  { timestamps: true }
-);
-
-module.exports = mongoose.model('Service', ServiceSchema);
-
-```
-// Database initialization & collection seeding
-db = db.getSiblingDB('waxxed_db');
-
-// Create collections
-db.createCollection('users');
-db.createCollection('services');
-
-// Seed Services Collection
-db.services.insertMany([
-  {
-    serviceName: 'Deep Washing (1–5 Vinyls)',
-    description: 'Ultrasonic and deep-groove cleaning for small batches. Eliminates surface noise, dust, and light smudges.',
-    price: '$25',
-    turnaround: '24–48 Hours',
-    createdAt: new Date()
-  },
-  {
-    serviceName: 'Deep Washing (6+ Vinyls)',
-    description: 'Bulk deep cleaning for larger collections. Complete groove restoration with anti-static inner sleeve upgrades included.',
-    price: '$45+',
-    turnaround: '2–3 Days',
-    createdAt: new Date()
-  },
-  {
-    serviceName: 'Premier Restoration',
-    description: 'Specialized intensive care for heavily soiled, mold-affected, or rare vintage pressings requiring multi-stage hand-restoration.',
-    price: '$60',
-    turnaround: '3–5 Days',
-    createdAt: new Date()
-  }
-]);
-
-
-## Database Architecture (MongoDB)
-
-The project connects to a MongoDB database named `vinyl_club_DB` housing three core collections:
-
-* **`members`**: Stores user profiles, authentication details, and membership credentials.
-* **`services`**: Contains the catalog of restoration services offered.
-* **`service_orders`**: Relational junction collection connecting members to their booked restoration requests.
-
-* ## 🍃 MongoDB Setup & Schemas
-
-**Database Name:** `waxxed_db`  
-**Collections:** `users`, `services`
-
----
-
-### Mongoose Schema Definitions (`models/`)
-
-#### 1. User Schema (`models/User.js`)
-
-```javascript
-const mongoose = require('mongoose');
-
-const UserSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, 'Please provide a full name'],
-      trim: true
-    },
-    email: {
-      type: String,
-      required: [true, 'Please provide an email address'],
-      unique: true,
-      lowercase: true,
-      trim: true
-    },
-    password: {
-      type: String,
-      required: [true, 'Please provide a password'],
-      minlength: 6
-    }
-  },
-  { timestamps: true }
-);
-
-module.exports = mongoose.model('User', UserSchema);
-
-```javascript
-// Example MongoDB Native Driver Connection (server/config/db.js)
-import { MongoClient } from 'mongodb';
-
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-const dbName = 'vinyl_club_DB';
-
-let dbInstance;
-
-export const connectDB = async () => {
-  if (dbInstance) return dbInstance;
-  const client = new MongoClient(url);
-  await client.connect();
-  dbInstance = client.db(dbName);
-  return dbInstance;
-};
-
