@@ -21,10 +21,11 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 
 ---
 
-## 🗄️ Database Entity-Relationship Diagram (ERD)
+## Database Entity-Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
+    direction TB
     members ||--o{ service_orders : "places (1:N)"
     services ||--o{ service_orders : "contains (1:N)"
 
