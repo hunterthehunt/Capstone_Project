@@ -3,36 +3,98 @@ import { Link } from 'react-router-dom';
 
 function Navbar({ user, onLogout }) {
   return (
-    <nav className="navbar">
-      <div className="nav-brand">
-        <Link to="/">WAXXED ON WAX</Link>
+    <nav 
+      style={{
+        backgroundColor: '#1a1a1a',
+        borderBottom: '1px solid #333',
+        padding: '15px 30px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+        boxSizing: 'border-box'
+      }}
+    >
+      {/* Brand / Logo */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <Link 
+          to="/" 
+          style={{ 
+            color: 'var(--gold-primary, #d4af37)', 
+            textDecoration: 'none', 
+            fontWeight: 'bold', 
+            fontSize: '1.2rem',
+            letterSpacing: '1px'
+          }}
+        >
+          WAXXED ON WAX
+        </Link>
+        <span 
+          style={{ 
+            color: '#888', 
+            fontSize: '0.85rem', 
+            borderLeft: '1px solid #444', 
+            paddingLeft: '15px' 
+          }}
+        >
+          {user ? `Logged in as: ${user.name || user.email || 'VIP Member'}` : 'Browsing as Guest'}
+        </span>
       </div>
 
-      <div className="nav-right">
-        {/* Requirement 4: Display logged-in user message or guest status */}
+      {/* Navigation Links & Actions */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <Link 
+          to="/" 
+          style={{ color: '#e0e0e0', textDecoration: 'none', fontSize: '0.95rem' }}
+        >
+          Home
+        </Link>
+        <Link 
+          to="/services" 
+          style={{ color: '#e0e0e0', textDecoration: 'none', fontSize: '0.95rem' }}
+        >
+          Services
+        </Link>
+
         {user ? (
-          <div className="user-welcome">
-            <span>Welcome back, <strong>{user.name || user.email}</strong>!</span>
-            <span className="member-badge">VIP MEMBER</span>
-          </div>
+          <button 
+            onClick={onLogout}
+            style={{
+              padding: '6px 14px',
+              backgroundColor: 'transparent',
+              color: 'var(--gold-primary, #d4af37)',
+              border: '1px solid var(--gold-primary, #d4af37)',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}
+          >
+            Logout
+          </button>
         ) : (
-          <span className="guest-tag">Browsing as Guest</span>
+          <>
+            <Link 
+              to="/login" 
+              style={{ color: '#e0e0e0', textDecoration: 'none', fontSize: '0.95rem' }}
+            >
+              Login
+            </Link>
+            <Link 
+              to="/register" 
+              style={{
+                padding: '6px 14px',
+                backgroundColor: 'var(--gold-primary, #d4af37)',
+                color: '#000',
+                textDecoration: 'none',
+                borderRadius: '4px',
+                fontWeight: 'bold',
+                fontSize: '0.9rem'
+              }}
+            >
+              Register
+            </Link>
+          </>
         )}
-
-        <div className="nav-links">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/services" className="nav-link">Services</Link>
-
-          {/* Requirement 3: Conditional Login and Logout buttons */}
-          {user ? (
-            <button onClick={onLogout} className="btn logout-btn">Logout</button>
-          ) : (
-            <>
-              <Link to="/login" className="btn login-btn">Login</Link>
-              <Link to="/register" className="btn register-btn">Register</Link>
-            </>
-          )}
-        </div>
       </div>
     </nav>
   );
