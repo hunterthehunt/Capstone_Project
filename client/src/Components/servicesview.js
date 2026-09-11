@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 
+// Replace with your exact image path if located in src/images/ or src/assets/
+// If stored in public/ (e.g. public/hero.jpg), you can use src="/hero.jpg" in the <img> tag directly.
+import bannerImg from '../images/vinylbanner.png';
+
 function ServicesView({ user }) {
-  // State definitions
   const [quantities, setQuantities] = useState({ 1: 0, 2: 0, 3: 0 });
   const [orderSummary, setOrderSummary] = useState([]);
   const [orderSubmitted, setOrderSubmitted] = useState(false);
 
-  // Available services list
   const services = [
     { id: 1, name: 'Deep-Groove Ultrasonic Wash', price: 25.00, desc: 'Lifts deep dirt, micro-dust, and static for crystal-clear playback.' },
     { id: 2, name: 'Warp Restoration & Flattening', price: 40.00, desc: 'Precision thermal press treatment to flatten warped vinyl.' },
     { id: 3, name: 'Archival Outer & Inner Sleeve Combo', price: 15.00, desc: 'Anti-static inner sleeves paired with heavy-duty outer jackets.' }
   ];
 
-  // Quantity handlers
   const handleQuantityChange = (id, delta) => {
     setQuantities(prev => ({
       ...prev,
@@ -36,19 +37,16 @@ function ServicesView({ user }) {
     });
   };
 
-  // Clear Cart Handler
   const handleClearCart = () => {
     setOrderSummary([]);
     setQuantities({ 1: 0, 2: 0, 3: 0 });
     setOrderSubmitted(false);
   };
 
-  // Total Calculation
   const calculateTotal = () => {
     return orderSummary.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
-  // Database Submit Handler
   const handleSubmitOrder = async () => {
     if (orderSummary.length === 0 || !user) return;
 
@@ -72,15 +70,27 @@ function ServicesView({ user }) {
       }
     } catch (err) {
       console.error('Database connection error:', err);
-      // Fallback UI indication if endpoint handles orders via separate route
       setOrderSubmitted(true);
-      setOrderSummary([]);
-      setQuantities({ 1: 0, 2: 0, 3: 0 });
+      handleClearCart();
     }
   };
 
   return (
     <div className="page-wrapper" style={{ padding: '40px 20px', maxWidth: '900px', margin: '0 auto' }}>
+      
+      {/* Restored Hero Banner Image Container */}
+      <div style={{ width: '100%', maxHeight: '250px', overflow: 'hidden', borderRadius: '8px', marginBottom: '25px', border: '1px solid #333' }}>
+        <img 
+          src={bannerImg} 
+          alt="Vinyl Restoration Lab" 
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          onError={(e) => {
+            // Fallback placeholder display if file path hasn't been set
+            e.target.style.display = 'none';
+          }}
+        />
+      </div>
+
       <h2 className="gold-title" style={{ color: 'var(--gold-primary, #d4af37)', textAlign: 'center', marginBottom: '10px' }}>
         Lab Services
       </h2>
