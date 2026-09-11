@@ -1,68 +1,13 @@
-/* Community Vibe Styles */
-.community-vibe {
-  background-color: #1e1b18;
-  color: #e6dfd5;
-  padding: 3rem 1.5rem;
-  text-align: center;
-  border-top: 1px solid #3a322b;
-  border-bottom: 1px solid #3a322b;
+/* Layout Containers */
+.app-container {
+  min-height: 100vh;
+  background-color: #121212;
+  color: #f1f1f1;
+  font-family: Arial, sans-serif;
 }
 
-.community-vibe h2 {
-  color: #d4af37; /* Golden yellow accent */
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.vibe-subtitle {
-  max-width: 650px;
-  margin: 0 auto;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #c2b6a6;
-}
-
-/* Stats Counter Styles */
-.stats-counter {
-  background-color: #2a241f;
-  padding: 2.5rem 1.5rem;
-}
-
-.stats-grid {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.stat-card {
-  text-align: center;
-  flex: 1;
-  min-width: 180px;
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  color: #d4af37;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
-}
-
-.stat-label {
-  color: #e6dfd5;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-/* Dark Global Theme */
-body {
-  margin: 0;
-  background-color: #12100e;
-  color: #e6dfd5;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.content-container {
+  padding: 2rem;
 }
 
 /* Navbar Styles */
@@ -70,145 +15,154 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1e1b18;
   padding: 1rem 2rem;
-  border-bottom: 2px solid #3a322b;
+  background-color: #1e1e1e;
+  border-bottom: 2px solid #333;
 }
 
 .nav-brand a {
-  color: #d4af37; /* Golden Yellow */
   font-size: 1.5rem;
   font-weight: bold;
+  color: #d4af37;
   text-decoration: none;
-  letter-spacing: 1px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-welcome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.member-badge {
+  background-color: #d4af37;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.guest-tag {
+  color: #aaa;
+  font-style: italic;
 }
 
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
 
-.nav-btn {
-  color: #e6dfd5;
-  background-color: #2a241f;
+.nav-link {
+  color: #fff;
   text-decoration: none;
+}
+
+.btn {
   padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: 1px solid #3a322b;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-}
-
-.nav-btn:hover {
-  background-color: #d4af37;
-  color: #12100e;
-  border-color: #d4af37;
-}
-
-/* Tile Border Style for Sections */
-.tile-border {
-  background-color: #1e1b18;
-  border: 1px solid #3a322b;
-  border-radius: 8px;
-  padding: 2rem;
-  margin: 1.5rem auto;
-  max-width: 1000px;
-}
-/* Page Centering Wrapper */
-.auth-page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 120px);
-  padding: 2rem 1rem;
-}
-
-/* Centered Form Card */
-.auth-card {
-  width: 100%;
-  max-width: 450px;
-  background-color: #1e1b18;
-  border: 1px solid #3a322b;
-  border-radius: 8px;
-  padding: 2.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-.auth-title {
-  color: #d4af37;
-  text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Form Layout */
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: left;
-}
-
-.form-group label {
-  color: #e6dfd5;
-  font-size: 0.95rem;
-  font-weight: 500;
-}
-
-.auth-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background-color: #12100e;
-  border: 1px solid #3a322b;
-  border-radius: 4px;
-  color: #e6dfd5;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-.auth-input:focus {
-  outline: none;
-  border-color: #d4af37;
-}
-
-/* Submit Button */
-.auth-btn {
-  background-color: #d4af37;
-  color: #12100e;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0.85rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 0.5rem;
-  transition: background-color 0.2s ease;
-}
-
-.auth-btn:hover {
-  background-color: #c5a028;
-}
-
-/* Footer Link */
-.auth-footer-text {
-  text-align: center;
-  color: #c2b6a6;
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-}
-
-.auth-link {
-  color: #d4af37;
   text-decoration: none;
-  font-weight: 600;
 }
 
-.auth-link:hover {
-  text-decoration: underline;
+.login-btn, .register-btn {
+  background-color: #333;
+  color: #fff;
+}
+
+.logout-btn {
+  background-color: #8b0000;
+  color: #fff;
+}
+
+/* Services Page with Sidebar Layout */
+.services-page-layout {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-main {
+  flex: 3;
+}
+
+.sidebar-banner {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.banner-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 650px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+/* Service Cards */
+.services-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.service-card {
+  background-color: #1e1e1e;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.member-exclusive {
+  border: 2px solid #d4af37;
+  background-color: #262215;
+  margin-bottom: 1.5rem;
+}
+
+.exclusive-badge {
+  color: #d4af37;
+  font-weight: bold;
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 0.5rem;
+}
+
+.new-price {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.member-banner-prompt {
+  background-color: #2a2a2a;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #d4af37;
+}
+
+.book-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #d4af37;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
