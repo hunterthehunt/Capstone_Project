@@ -1,7 +1,7 @@
-import express from 'express';
-import { getDb } from '../config/db.js';
-
+const express = require('express');
 const router = express.Router();
+const { getDb } = require('../config/db');
+
 
 // @route   GET /api/services
 // @desc    Get all restoration services from MongoDB
@@ -16,4 +16,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

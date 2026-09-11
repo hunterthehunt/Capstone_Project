@@ -1,168 +1,49 @@
-/* Layout Containers */
+:root {
+  --bg-dark: #121212;
+  --card-dark: #1e1e1e;
+  --gold-primary: #d4af37;
+  --text-light: #e0e0e0;
+  --text-muted: #a0a0a0;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .app-container {
   min-height: 100vh;
-  background-color: #121212;
-  color: #f1f1f1;
-  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .content-container {
-  padding: 2rem;
-}
-
-/* Navbar Styles */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #1e1e1e;
-  border-bottom: 2px solid #333;
-}
-
-.nav-brand a {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #d4af37;
-  text-decoration: none;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.user-welcome {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.member-badge {
-  background-color: #d4af37;
-  color: #000;
-  font-size: 0.75rem;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.guest-tag {
-  color: #aaa;
-  font-style: italic;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.login-btn, .register-btn {
-  background-color: #333;
-  color: #fff;
-}
-
-.logout-btn {
-  background-color: #8b0000;
-  color: #fff;
-}
-
-/* Services Page with Sidebar Layout */
-.services-page-layout {
-  display: flex;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.services-main {
-  flex: 3;
-}
-
-.sidebar-banner {
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
 }
 
-.banner-image {
-  max-width: 100%;
-  height: auto;
-  max-height: 650px;
-  border-radius: 8px;
-  border: 1px solid #333;
-}
-
-/* Service Cards */
-.services-grid {
+.page-wrapper {
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
+  gap: 20px;
 }
 
-.service-card {
-  background-color: #1e1e1e;
-  padding: 1.5rem;
+.dark-card {
+  background-color: var(--card-dark);
   border-radius: 8px;
-  border: 1px solid #333;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid #2a2a2a;
 }
 
-.member-exclusive {
-  border: 2px solid #d4af37;
-  background-color: #262215;
-  margin-bottom: 1.5rem;
-}
-
-.exclusive-badge {
-  color: #d4af37;
-  font-weight: bold;
-  font-size: 0.85rem;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.old-price {
-  text-decoration: line-through;
-  color: #888;
-  margin-right: 0.5rem;
-}
-
-.new-price {
-  color: #4caf50;
-  font-weight: bold;
-}
-
-.member-banner-prompt {
-  background-color: #2a2a2a;
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1.5rem;
-  border-left: 4px solid #d4af37;
-}
-
-.book-btn {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #d4af37;
-  color: #000;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.gold-title {
+  color: var(--gold-primary);
 }
