@@ -1,63 +1,80 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Adjust path to your User model
+const User = require('../models/user');
 
-// REGISTER ROUTE
+// POST /api/auth/register - Register a new member
 router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
-
   try {
-    // 1. Requirement 5: Check if email already exists
-    const existingUser = await User.findOne({ email: email.toLowerCase().trim() });
-    if (existingUser) {
-      return res.status(400).json({ 
-        message: 'An account with this email address already exists. Please log in or use a different email.' 
-      });
+    const { firstName, lastName, email, password } = req.body;
+
+    // 1. Basic input validation
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required.' });
     }
 
-    // 2. Create and save new user
+    // 2. Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email is already registered.' });
+    }
+
+    // 3. Auto-generate member number (e.g., MEM-2026-004)
+    const count = await User.countDocuments();
+    const memberNumber = `MEM-2026-${String(count + 1).padStart(3, '0')}`;
+
+    // 4. Create and save new member using firstName and lastName
     const newUser = new User({
-      name,
-      email: email.toLowerCase().trim(),
-      password // In production, ensure this is hashed using bcrypt
+      firstName: firstName || 'Club',
+      lastName: lastName || 'Member',
+      email,
+      password, // Note: Use bcrypt for password hashing in production
+      memberNumber
     });
 
     await newUser.save();
 
     res.status(201).json({
-      message: 'Registration successful!',
+      message: 'User registered successfully!',
       user: {
         id: newUser._id,
-        name: newUser.name,
-        email: newUser.email
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+        memberNumber: newUser.memberNumber
       }
     });
-  } catch (error) {
-    console.error('Registration Error:', error);
-    res.status(500).json({ message: 'Server error during registration.' });
+  } catch (err) {
+    console.error('Registration Error:', err);
+    res.status(500).json({ message: err.message || 'Server error during registration.' });
   }
 });
 
-// LOGIN ROUTE
+// POST /api/auth/login - Log in an existing member
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
   try {
-    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Please provide email and password.' });
+    }
+
+    const user = await User.findOne({ email });
     if (!user || user.password !== password) {
-      return res.status(401).json({ message: 'Invalid email or password.' });
+      return res.status(400).json({ message: 'Invalid email or password.' });
     }
 
     res.status(200).json({
       message: 'Login successful!',
       user: {
         id: user._id,
-        name: user.name,
-        email: user.email
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        memberNumber: user.memberNumber
       }
     });
-  } catch (error) {
-    console.error('Login Error:', error);
+  } catch (err) {
+    console.error('Login Error:', err);
     res.status(500).json({ message: 'Server error during login.' });
   }
 });

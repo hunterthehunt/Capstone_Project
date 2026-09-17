@@ -1,26 +1,31 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, 'Please provide a full name'],
-      trim: true
-    },
-    email: {
-      type: String,
-      required: [true, 'Please provide an email address'],
-      unique: true,
-      lowercase: true,
-      trim: true
-    },
-    password: {
-      type: String,
-      required: [true, 'Please provide a password'],
-      minlength: 6
-    }
+const UserSchema = new mongoose.Schema({
+  firstName: {
+    type: String,
+    required: [true, 'Please provide a first name'],
+    trim: true
   },
-  { timestamps: true }
-);
+  lastName: {
+    type: String,
+    required: [true, 'Please provide a last name'],
+    trim: true
+  },
+  email: {
+    type: String,
+    required: [true, 'Please provide an email address'],
+    unique: true,
+    lowercase: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: [true, 'Please provide a password']
+  },
+  memberNumber: {
+    type: String
+  }
+}, { timestamps: true });
 
-module.exports = mongoose.model('User', UserSchema);
+// Exports model pointing specifically to the 'members' collection
+module.exports = mongoose.models.User || mongoose.model('User', UserSchema, 'members');
