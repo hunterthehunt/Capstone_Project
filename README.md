@@ -112,9 +112,15 @@ db.services.insertMany([
 ### Services Page
 ![Services Page](./images/services.png)
 ```
+---
+### Developer Profile
+* **Project:** Waxxed on Wax Capstone
+* **LinkedIn:** [Connect on LinkedIn](https://www.linkedin.com)
+
 **Key Enhancements Included:**
 * **MongoDB Data Types:** Replaced generic strings with exact BSON types (`ObjectId`, `date`, `int`).
 * **Explicit Keys:** Labeled Primary Keys (`PK`) and Foreign Keys (`FK`) inside each collection.
 * **Complete Schemas:** Added `updatedAt` and timestamp fields across all entities to mirror real database schemas.
 * **Cardinality Labels:** Defined explicit relationship labels (`places (1:N)` and `contains (1:N)`).
 ]);
+```
