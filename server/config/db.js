@@ -1,28 +1,17 @@
-import { MongoClient } from 'mongodb';
+const mongoose = require('mongoose');
 
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-const dbName = 'vinyl_club_DB';
-
-let dbInstance;
-
-export const connectDB = async () => {
-  if (dbInstance) return dbInstance;
-
+const connectDB = async () => {
   try {
-    const client = new MongoClient(url);
-    await client.connect();
-    console.log('Connected to MongoDB (vinyl_club_DB)');
-    dbInstance = client.db(dbName);
-    return dbInstance;
+    // Falls back to local vinyl_club_DB if process.env.MONGO_URI is undefined
+    const conn = await mongoose.connect(
+      process.env.MONGO_URI || 'mongodb://localhost:27017/vinyl_club_DB'
+    );
+
+    console.log(`Connected to MongoDB (${conn.connection.name})`);
   } catch (error) {
-    console.error('MongoDB Connection Error:', error);
+    console.error(`Error connecting to MongoDB: ${error.message}`);
     process.exit(1);
   }
 };
 
-export const getDb = () => {
-  if (!dbInstance) {
-    throw new Error('Database not connected. Call connectDB first.');
-  }
-  return dbInstance;
-};
+module.exports = connectDB;
