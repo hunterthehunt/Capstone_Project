@@ -1,59 +1,102 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-
-// Navbar import
-import Navbar from './Components/navbar';
-
-// Lowercase imports matching the exact filenames on disk
+import React, { useState } from 'react';
+import AIAssistant from './Components/aiassistant';
 import HomeView from './Components/homeview';
 import ServicesView from './Components/servicesview';
 import LoginView from './Components/loginview';
 import RegisterView from './Components/registerview';
 
-import './App.css';
-
 function App() {
+  const [currentView, setCurrentView] = useState('home');
   const [user, setUser] = useState(null);
 
-  // Load user session from localStorage on initial page load
-  useEffect(() => {
-    const savedUser = localStorage.getItem('appUser');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
-
-  const handleLogin = (userData) => {
-    setUser(userData);
-    localStorage.setItem('appUser', JSON.stringify(userData));
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('appUser');
-  };
-
   return (
-    <Router>
-      <div className="app-container">
-        <Navbar user={user} onLogout={handleLogout} />
-        
-        <div className="content-container">
-          <Routes>
-            <Route path="/" element={<HomeView user={user} />} />
-            <Route path="/services" element={<ServicesView user={user} />} />
-            <Route 
-              path="/login" 
-              element={user ? <Navigate to="/services" /> : <LoginView onLogin={handleLogin} />} 
-            />
-            <Route 
-              path="/register" 
-              element={user ? <Navigate to="/services" /> : <RegisterView onLogin={handleLogin} />} 
-            />
-          </Routes>
+    <div style={{ backgroundColor: '#121212', minHeight: '100vh', color: '#fff' }}>
+      {/* Navigation Bar */}
+      <nav style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '15px 30px',
+        backgroundColor: '#181818',
+        borderBottom: '1px solid #333'
+      }}>
+        <div 
+          onClick={() => setCurrentView('home')} 
+          style={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--gold-primary, #d4af37)', cursor: 'pointer' }}
+        >
+          WAXXED ON WAX
         </div>
-      </div>
-    </Router>
+
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+          <span 
+            onClick={() => setCurrentView('home')} 
+            style={{ cursor: 'pointer', color: currentView === 'home' ? '#d4af37' : '#ccc' }}
+          >
+            Home
+          </span>
+
+          <span 
+            onClick={() => setCurrentView('services')} 
+            style={{ cursor: 'pointer', color: currentView === 'services' ? '#d4af37' : '#ccc' }}
+          >
+            Services
+          </span>
+
+          {!user ? (
+            <>
+              <span 
+                onClick={() => setCurrentView('login')} 
+                style={{ cursor: 'pointer', color: currentView === 'login' ? '#d4af37' : '#ccc' }}
+              >
+                Login
+              </span>
+              <button 
+                onClick={() => setCurrentView('register')}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: 'var(--gold-primary, #d4af37)',
+                  color: '#000',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer'
+                }}
+              >
+                Register
+              </button>
+            </>
+          ) : (
+            <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+              <span style={{ color: '#aaa', fontSize: '0.9rem' }}>{user.email}</span>
+              <button 
+                onClick={() => setUser(null)}
+                style={{
+                  padding: '6px 12px',
+                  backgroundColor: '#333',
+                  color: '#fff',
+                  border: '1px solid #444',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Log Out
+              </button>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* AI Assistant Search Bar */}
+      <AIAssistant />
+
+      {/* Main Views */}
+      <main style={{ padding: '20px' }}>
+        {currentView === 'home' && <HomeView />}
+        {currentView === 'services' && <ServicesView user={user} />}
+        {currentView === 'login' && <LoginView onNavigate={setCurrentView} setUser={setUser} />}
+        {currentView === 'register' && <RegisterView onNavigate={setCurrentView} />}
+      </main>
+    </div>
   );
 }
 
