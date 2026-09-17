@@ -116,7 +116,7 @@ db.services.insertMany([
 ---
 ### Developer Profile
 * **Project:** Waxxed on Wax Capstone
-* **LinkedIn:** [Connect on LinkedIn](https://www.linkedin.com)
+* **LinkedIn:** [Connect on LinkedIn](https://www.linkedin.com/in/kienhunter/)
 
 **Key Enhancements Included:**
 * **MongoDB Data Types:** Replaced generic strings with exact BSON types (`ObjectId`, `date`, `int`).
