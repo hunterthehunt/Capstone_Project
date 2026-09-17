@@ -97,7 +97,7 @@ db.services.insertMany([
     createdAt: new Date()
   }
 ]);
-```
+
 ## Screenshots
 
 ### Home Page
@@ -111,7 +111,7 @@ db.services.insertMany([
 
 ### Services Page
 ![Services Page](./images/services.png)
-```
+
 ---
 ### Developer Profile
 * **Project:** Waxxed on Wax Capstone
