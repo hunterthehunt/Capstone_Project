@@ -9,15 +9,17 @@ const ServiceSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, 'Please provide a description']
+      required: [true, 'Please provide a description'],
+      trim: true
     },
     price: {
-      type: String,
+      type: Number,
       required: [true, 'Please provide a price']
     },
     turnaround: {
       type: String,
-      required: [true, 'Please provide estimated turnaround time']
+      required: [true, 'Please provide estimated turnaround time'],
+      trim: true
     }
   },
   { timestamps: true }
