@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
@@ -12,8 +14,14 @@ app.use(express.json());
 connectDB();
 
 // Routes
-app.use('/api/auth', require('./routes/auth')); // or memberRoutes.js
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/services', require('./routes/serviceRoutes'));
+app.use('/api/ai', require('./routes/aiRoutes'));
+
+// Root endpoint test
+app.get('/', (req, res) => {
+  res.send('Vinyl Club API Server is running...');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
