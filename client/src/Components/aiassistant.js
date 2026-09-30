@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 const AIAssistant = () => {
   const [prompt, setPrompt] = useState('');
@@ -80,11 +81,14 @@ const AIAssistant = () => {
             borderLeft: '4px solid #d4af37',
             borderRadius: '4px',
             color: '#eee',
-            lineHeight: '1.5',
+            lineHeight: '1.6',
+            whiteSpace: 'pre-wrap', // Keeps paragraph spacing clean
           }}
         >
-          <strong>AI Assistant:</strong>
-          <p style={{ marginTop: '5px', marginBottom: 0 }}>{response}</p>
+          <strong style={{ color: '#d4af37' }}>AI Assistant:</strong>
+          <div style={{ marginTop: '8px' }}>
+            <ReactMarkdown>{response}</ReactMarkdown>
+          </div>
         </div>
       )}
     </div>

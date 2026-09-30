@@ -17,6 +17,7 @@ connectDB();
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/ai', require('./routes/aiRoutes'));
+app.use('/api/orders', require('./routes/orders'));
 
 // Root endpoint test
 app.get('/', (req, res) => {

@@ -5,20 +5,42 @@ function LoginView({ onNavigate, setUser }) {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate login for capstone demo
-    if (formData.email && formData.password) {
-      const loggedUser = { email: formData.email, id: 'user_123' };
-      if (setUser) setUser(loggedUser);
+    setError(''); // Clear previous errors
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // If server returns 400 or 401, display server error message and STOP login
+        setError(data.message || 'Invalid email or password.');
+        return;
+      }
+
+      // ONLY set state and navigate if the backend returned 200 OK
+      if (setUser) setUser(data.user);
       if (onNavigate) onNavigate('services');
-    } else {
-      alert('Please enter both email and password.');
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('Unable to connect to server. Please ensure backend is running.');
     }
   };
 
@@ -46,6 +68,21 @@ function LoginView({ onNavigate, setUser }) {
         }}>
           Member Sign In
         </h2>
+
+        {error && (
+          <div style={{
+            padding: '10px',
+            marginBottom: '15px',
+            backgroundColor: 'rgba(255, 0, 0, 0.15)',
+            border: '1px solid #ff4d4d',
+            color: '#ff4d4d',
+            borderRadius: '4px',
+            fontSize: '14px',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           <div>

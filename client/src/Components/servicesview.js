@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Replace with your exact image path if located in src/images/ or src/assets/
-// If stored in public/ (e.g. public/hero.jpg), you can use src="/hero.jpg" in the <img> tag directly.
 import bannerImg from '../images/vinylbanner.png';
 
 function ServicesView({ user }) {
-  const [quantities, setQuantities] = useState({ 1: 0, 2: 0, 3: 0 });
+  const [services, setServices] = useState([]);
+  const [quantities, setQuantities] = useState({});
   const [orderSummary, setOrderSummary] = useState([]);
   const [orderSubmitted, setOrderSubmitted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const services = [
-    { id: 1, name: 'Deep-Groove Ultrasonic Wash', price: 25.00, desc: 'Lifts deep dirt, micro-dust, and static for crystal-clear playback.' },
-    { id: 2, name: 'Warp Restoration & Flattening', price: 40.00, desc: 'Precision thermal press treatment to flatten warped vinyl.' },
-    { id: 3, name: 'Archival Outer & Inner Sleeve Combo', price: 15.00, desc: 'Anti-static inner sleeves paired with heavy-duty outer jackets.' }
-  ];
+  // Load available services from MongoDB on component mount
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/services');
+        if (!response.ok) {
+          throw new Error('Failed to load services from server.');
+        }
+        const data = await response.json();
+        setServices(data);
+      } catch (err) {
+        console.error('Error fetching services:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   const handleQuantityChange = (id, delta) => {
     setQuantities(prev => ({
@@ -23,69 +40,72 @@ function ServicesView({ user }) {
   };
 
   const handleAddOption = (service) => {
-    const qty = quantities[service.id];
+    const serviceId = service._id || service.id;
+    const qty = quantities[serviceId] || 0;
     if (qty <= 0) return;
 
+    const title = service.serviceName || service.name || 'Lab Service';
+    const cost = Number(service.price ?? service.basePrice ?? 0);
+
     setOrderSummary(prev => {
-      const existingIndex = prev.findIndex(item => item.id === service.id);
+      const existingIndex = prev.findIndex(item => (item._id || item.id) === serviceId);
       if (existingIndex > -1) {
         const updated = [...prev];
         updated[existingIndex].quantity = qty;
         return updated;
       }
-      return [...prev, { ...service, quantity: qty }];
+      return [...prev, { ...service, name: title, price: cost, quantity: qty }];
     });
   };
 
   const handleClearCart = () => {
     setOrderSummary([]);
-    setQuantities({ 1: 0, 2: 0, 3: 0 });
+    setQuantities({});
     setOrderSubmitted(false);
   };
 
   const calculateTotal = () => {
-    return orderSummary.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return orderSummary.reduce((total, item) => total + (Number(item.price) * item.quantity), 0);
   };
 
   const handleSubmitOrder = async () => {
     if (orderSummary.length === 0 || !user) return;
 
     try {
-      const response = await fetch('http://localhost:5000/api/services', {
+      const response = await fetch('http://localhost:5000/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userId: user.id || user.email,
+          userId: user.id || user._id || user.email,
           items: orderSummary,
-          total: calculateTotal(),
-          date: new Date().toISOString()
+          total: calculateTotal()
         }),
       });
+
+      const data = await response.json();
 
       if (response.ok) {
         setOrderSubmitted(true);
         handleClearCart();
       } else {
-        alert('Failed to send order to database.');
+        alert(data.message || 'Failed to send order to database.');
       }
     } catch (err) {
       console.error('Database connection error:', err);
-      setOrderSubmitted(true);
-      handleClearCart();
+      alert('Server connection error. Ensure your backend server is running on port 5000.');
     }
   };
 
   return (
     <div className="page-wrapper" style={{ padding: '40px 20px', maxWidth: '900px', margin: '0 auto' }}>
       
-      {/* Restored Hero Banner Image Container */}
+      {/* Hero Banner Image Container */}
       <div style={{ width: '100%', maxHeight: '250px', overflow: 'hidden', borderRadius: '8px', marginBottom: '25px', border: '1px solid #333' }}>
         <img 
           src={bannerImg} 
           alt="Vinyl Restoration Lab" 
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           onError={(e) => {
-            // Fallback placeholder display if file path hasn't been set
             e.target.style.display = 'none';
           }}
         />
@@ -104,25 +124,43 @@ function ServicesView({ user }) {
         </div>
       )}
 
-      {/* Services List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        {services.map((service) => (
-          <div key={service.id} className="dark-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', borderRadius: '8px', backgroundColor: '#181818', border: '1px solid #282828' }}>
-            <div style={{ flex: 1 }}>
-              <h4 style={{ color: 'var(--gold-primary, #d4af37)', margin: '0 0 5px 0' }}>{service.name}</h4>
-              <p style={{ color: '#aaa', fontSize: '0.9rem', margin: '0 0 8px 0' }}>{service.desc}</p>
-              <span style={{ color: '#fff', fontWeight: 'bold' }}>${service.price.toFixed(2)}</span>
-            </div>
+      {/* Loading & Error Indicators */}
+      {loading && <p style={{ textAlign: 'center', color: '#ccc' }}>Loading services from database...</p>}
+      {error && <p style={{ textAlign: 'center', color: '#ff4d4d' }}>{error}</p>}
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <button onClick={() => handleQuantityChange(service.id, -1)} style={{ padding: '5px 12px', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>-</button>
-              <span style={{ color: '#fff', minWidth: '20px', textAlign: 'center' }}>{quantities[service.id] || 0}</span>
-              <button onClick={() => handleQuantityChange(service.id, 1)} style={{ padding: '5px 12px', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>+</button>
-              <button onClick={() => handleAddOption(service)} style={{ marginLeft: '10px', padding: '6px 14px', backgroundColor: '#333', color: 'var(--gold-primary, #d4af37)', border: '1px solid #444', borderRadius: '4px', cursor: 'pointer' }}>Add Option</button>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Services List loaded dynamically from MongoDB */}
+      {!loading && !error && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {services.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#888' }}>No services available at this time.</p>
+          ) : (
+            services.map((service) => {
+              const serviceId = service._id || service.id;
+              const title = service.serviceName || service.name || 'Lab Service';
+              const cost = Number(service.price ?? service.basePrice ?? 0);
+
+              return (
+                <div key={serviceId} className="dark-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', borderRadius: '8px', backgroundColor: '#181818', border: '1px solid #282828' }}>
+                  <div style={{ flex: 1 }}>
+                    <h4 style={{ color: 'var(--gold-primary, #d4af37)', margin: '0 0 5px 0' }}>{title}</h4>
+                    <p style={{ color: '#aaa', fontSize: '0.9rem', margin: '0 0 8px 0' }}>{service.description || service.desc}</p>
+                    <span style={{ color: '#fff', fontWeight: 'bold' }}>
+                      ${cost.toFixed(2)}
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <button onClick={() => handleQuantityChange(serviceId, -1)} style={{ padding: '5px 12px', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>-</button>
+                    <span style={{ color: '#fff', minWidth: '20px', textAlign: 'center' }}>{quantities[serviceId] || 0}</span>
+                    <button onClick={() => handleQuantityChange(serviceId, 1)} style={{ padding: '5px 12px', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>+</button>
+                    <button onClick={() => handleAddOption(service)} style={{ marginLeft: '10px', padding: '6px 14px', backgroundColor: '#333', color: 'var(--gold-primary, #d4af37)', border: '1px solid #444', borderRadius: '4px', cursor: 'pointer' }}>Add Option</button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
 
       {/* Selected Order Summary Panel */}
       {orderSummary.length > 0 && (
@@ -132,7 +170,7 @@ function ServicesView({ user }) {
             {orderSummary.map((item, index) => (
               <li key={index} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #222', color: '#fff' }}>
                 <span>{item.name} (x{item.quantity})</span>
-                <span style={{ color: 'var(--gold-primary, #d4af37)' }}>${(item.price * item.quantity).toFixed(2)}</span>
+                <span style={{ color: 'var(--gold-primary, #d4af37)' }}>${(Number(item.price) * item.quantity).toFixed(2)}</span>
               </li>
             ))}
           </ul>
