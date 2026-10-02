@@ -113,7 +113,7 @@ db.services.insertMany([
     turnaround: "24–48 Hours",
     createdAt: new Date()
   },
-```
+```javascript
   {
     service_name: "Deep Washing (6+ Vinyls)",
     description: "Bulk deep cleaning for larger collections. Complete groove restoration with anti-static inner sleeve upgrades included.",
@@ -133,16 +133,16 @@ db.services.insertMany([
 ## Screenshots
 
 ### Home Page
-![Home Page](./images/home.png)
+![Home Page](./client/src/images/home.png)
 
 ### Login Page
-![Login Page](./images/login.png)
+![Login Page](./client/src/images/login.png)
 
 ### Registration Page
-![Register Page](./images/register.png)
+![Register Page](./client/src/images/register.png)
 
 ### Services Page
-![Services Page](./images/services.png)
+![Services Page](./client/src/images/services.png)
 
 ---
 ### Developer Profile
