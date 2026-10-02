@@ -89,8 +89,6 @@ erDiagram
         date createdAt
         date updatedAt
     }
-```
-
 
 
 ## MongoDB DB Setup
