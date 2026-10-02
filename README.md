@@ -104,6 +104,7 @@ db.createCollection("members");
 db.createCollection("services");
 db.createCollection("service_orders");
 
+```javascript
 // Seed initial restoration services
 db.services.insertMany([
   {
@@ -113,7 +114,6 @@ db.services.insertMany([
     turnaround: "24–48 Hours",
     createdAt: new Date()
   },
-```javascript
   {
     service_name: "Deep Washing (6+ Vinyls)",
     description: "Bulk deep cleaning for larger collections. Complete groove restoration with anti-static inner sleeve upgrades included.",
