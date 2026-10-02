@@ -91,6 +91,7 @@ erDiagram
     }
 
 
+
 ## MongoDB DB Setup
 
 Name "vinyl_club_DB"
