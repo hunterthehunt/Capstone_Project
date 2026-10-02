@@ -13,6 +13,42 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 
 ---
 
+# Waxxed on Wax - Vinyl Restoration & Club Capstone
+
+A full-stack web application designed for vinyl record enthusiasts to explore services, request vinyl restorations, and interact with an AI assistant. Built using React, Node.js, Express, and MongoDB.
+
+---
+
+## 📁 Project Structure
+
+Capstone_Project/
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── Components/
+│   │   ├── images/       # All project screenshots and UI assets
+│   │   ├── App.js
+│   │   └── index.js
+│   └── package.json
+├── server/
+│   ├── config/
+│   │   └── db.js
+│   ├── models/
+│   │   ├── Order.js      # Mongoose schema for service_orders
+│   │   ├── service.js
+│   │   └── user.js
+│   ├── routes/
+│   │   ├── aiRoutes.js
+│   │   ├── auth.js
+│   │   ├── orders.js     # Route for submitting & processing orders
+│   │   └── serviceRoutes.js
+│   ├── server.js
+│   └── package.json
+├── .gitignore
+└── README.md
+
+---
+
 ## User Stories
 
 1. **As a vinyl enthusiast**, I want to browse available vinyl records and restoration services so that I can care for and grow my collection.
