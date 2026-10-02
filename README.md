@@ -54,8 +54,6 @@ Capstone_Project/
 
 ## Database Entity-Relationship Diagram (ERD)
 
-## Database Entity-Relationship Diagram (ERD)
-
 ```mermaid
 erDiagram
     direction TB
@@ -91,7 +89,7 @@ erDiagram
         date createdAt
         date updatedAt
     }
-```
+
 
 ## MongoDB DB Setup
 
