@@ -107,24 +107,38 @@ db.createCollection("service_orders");
 // Seed initial restoration services
 db.services.insertMany([
   {
-    service_name: "Deep Washing (1–5 Vinyls)",
+    serviceName: "Deep Washing (1 Vinyl)",
+    description: "Removes deep-groove microscopic dust and static pops",
+    turnaroundDays: 2,
+    price: 12,
+    createdAt: new Date()
+  },
+  {
+    serviceName: "Deep Washing (1–5 Vinyls)",
     description: "Ultrasonic and deep-groove cleaning for small batches. Eliminates surface noise, dust, and light smudges.",
-    price: "$25",
-    turnaround: "24–48 Hours",
+    turnaround: "72 Hours",
+    price: 25,
     createdAt: new Date()
   },
   {
-    service_name: "Deep Washing (6+ Vinyls)",
+    serviceName: "Deep Washing (6+ Vinyls)",
     description: "Bulk deep cleaning for larger collections. Complete groove restoration with anti-static inner sleeve upgrades included.",
-    price: "$45+",
-    turnaround: "2–3 Days",
+    turnaround: "4–7 Days",
+    price: 45,
     createdAt: new Date()
   },
   {
-    service_name: "Premier Restoration",
+    serviceName: "Premier Restoration",
     description: "Specialized intensive care for heavily soiled, mold-affected, or rare vintage pressings requiring multi-stage hand-restoration.",
-    price: "$60",
     turnaround: "3–5 Days",
+    price: 60,
+    createdAt: new Date()
+  },
+  {
+    serviceName: "Shallow Washing (1 Vinyl)",
+    description: "Removes light-groove microscopic dust and static pops",
+    turnaroundDays: 2,
+    price: 8,
     createdAt: new Date()
   }
 ]);
