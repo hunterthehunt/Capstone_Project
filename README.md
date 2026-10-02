@@ -1,6 +1,6 @@
 # Waxxed on Wax Vinyl Club
 
-This site is designed as a vinyl collector's safe haven. Members can interact, view vinyl collections from our catalog, and request restoration services for older vinyl records. The UI features a relaxed aesthetic—utilizing warm browns, golden yellows, and dark hues to create a laid-back, lounge-inspired atmosphere rather than a bright or high-contrast interface.
+A full-stack web application designed for vinyl record enthusiasts to explore services, request vinyl restorations, and interact with an AI assistant. Built using React, Node.js, Express, and MongoDB.  This site is designed as a vinyl collector's safe haven. Members can interact, view vinyl collections from our catalog, and request restoration services for older vinyl records. The UI features a relaxed aesthetic—utilizing warm browns, golden yellows, and dark hues to create a laid-back, lounge-inspired atmosphere rather than a bright or high-contrast interface.
 
 ---
 
@@ -10,6 +10,37 @@ This site is designed as a vinyl collector's safe haven. Members can interact, v
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB (MongoDB Native Driver & Mongoose)
 * **Utilities:** CORS, Express List Endpoints, Nodemon
+
+---
+
+## 📁 Project Structure
+
+```text
+Capstone_Project/
+├── client/
+│   ├── public/
+│   ├── src/
+│   │   ├── Components/
+│   │   ├── images/       # All project screenshots and UI assets
+│   │   ├── App.js
+│   │   └── index.js
+│   └── package.json
+├── server/
+│   ├── config/
+│   │   └── db.js
+│   ├── models/
+│   │   ├── Order.js      # Mongoose schema for service_orders
+│   │   ├── service.js
+│   │   └── user.js
+│   ├── routes/
+│   │   ├── aiRoutes.js
+│   │   ├── auth.js
+│   │   ├── orders.js     # Route for submitting & processing orders
+│   │   └── serviceRoutes.js
+│   ├── server.js
+│   └── package.json
+├── .gitignore
+└── README.md
 
 ---
 
