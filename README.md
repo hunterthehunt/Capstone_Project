@@ -54,7 +54,9 @@ Capstone_Project/
 
 ## Database Entity-Relationship Diagram (ERD)
 
+```
 ```mermaid
+
 erDiagram
     direction TB
     members ||--o{ service_orders : "places (1:N)"
@@ -89,7 +91,7 @@ erDiagram
         date createdAt
         date updatedAt
     }
-
+```
 
 ## MongoDB DB Setup
 
