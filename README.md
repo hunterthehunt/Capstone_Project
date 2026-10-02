@@ -1,6 +1,6 @@
 # Waxxed on Wax Vinyl Club
 
-A full-stack web application designed for vinyl record enthusiasts to explore services, request vinyl restorations, and interact with an AI assistant. Built using React, Node.js, Express, and MongoDB.  This site is designed as a vinyl collector's safe haven. Members can interact, view vinyl collections from our catalog, and request restoration services for older vinyl records. The UI features a relaxed aesthetic—utilizing warm browns, golden yellows, and dark hues to create a laid-back, lounge-inspired atmosphere rather than a bright or high-contrast interface.
+A full-stack web application designed for vinyl record enthusiasts to explore services, request vinyl restorations, and interact with an AI assistant. Built using React, Node.js, Express, and MongoDB. This site is designed as a vinyl collector's safe haven. Members can interact, view vinyl collections from our catalog, and request restoration services for older vinyl records. The UI features a relaxed aesthetic—utilizing warm browns, golden yellows, and dark hues to create a laid-back, lounge-inspired atmosphere rather than a bright or high-contrast interface.
 
 ---
 
@@ -93,7 +93,7 @@ erDiagram
 
 ## MongoDB DB Setup
 
-Name the database "vinyl_club_DB"
+Name "vinyl_club_DB"
 there are 3 collections
 
 ```javascript
@@ -104,7 +104,6 @@ db.createCollection("members");
 db.createCollection("services");
 db.createCollection("service_orders");
 
-```javascript
 // Seed initial restoration services
 db.services.insertMany([
   {
