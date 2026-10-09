@@ -74,7 +74,8 @@ function ServicesView({ user }) {
     if (orderSummary.length === 0 || !user) return;
 
     try {
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const API_URL = process.env.REACT_APP_API_URL;
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -83,7 +84,15 @@ function ServicesView({ user }) {
           total: calculateTotal()
         }),
       });
-
+//  const response = await fetch('http://localhost:5000/api/orders', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({
+//           userId: user.id || user._id || user.email,
+//           items: orderSummary,
+//           total: calculateTotal()
+//         }),
+//       });
       const data = await response.json();
 
       if (response.ok) {
