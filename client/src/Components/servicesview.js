@@ -15,7 +15,9 @@ function ServicesView({ user }) {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/services');
+        const API_URL = process.env.REACT_APP_API_URL;
+        //const response = await fetch('http://localhost:5000/api/services');
+        const response = await fetch(`${API_URL}/api/services`);
         if (!response.ok) {
           throw new Error('Failed to load services from server.');
         }

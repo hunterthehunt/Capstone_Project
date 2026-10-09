@@ -16,8 +16,19 @@ function LoginView({ onNavigate, setUser }) {
     setError(''); // Clear previous errors
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
+      // const response = await fetch('http://localhost:5000/api/auth/login', {
+      //  method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //     email: formData.email,
+      //     password: formData.password
+      //   })
+      // });
+      const API_URL = process.env.REACT_APP_API_URL;
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+       method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -26,7 +37,6 @@ function LoginView({ onNavigate, setUser }) {
           password: formData.password
         })
       });
-
       const data = await response.json();
 
       if (!response.ok) {
